@@ -1,7 +1,11 @@
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+import pandas
 
 import datetime as dt
+
+wine_ex = pandas.read_excel('wine.xlsx')
+print(wine_ex.to_dict(orient='record'))
 
 env = Environment(
     loader = FileSystemLoader('.'),
