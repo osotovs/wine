@@ -5,7 +5,8 @@ import pandas
 import datetime as dt
 
 wine_ex = pandas.read_excel('wine.xlsx')
-print(wine_ex.to_dict(orient='record'))
+cards = wine_ex.to_dict(orient='record')
+print(cards)
 
 env = Environment(
     loader = FileSystemLoader('.'),
@@ -18,7 +19,8 @@ date_now = dt.date.today()
 date_age = date_now.year - date_born.year
 
 rendered_page = template.render(
-    date_text = date_age
+    date_text = date_age,
+    cards = cards
 
 )
 
