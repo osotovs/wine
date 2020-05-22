@@ -4,6 +4,7 @@ import pandas
 
 import datetime as dt
 from pprint import pprint
+import collections
 
 wine_ex = pandas.read_excel('wine.xlsx')
 cards = wine_ex.to_dict(orient='record')
@@ -11,16 +12,11 @@ cards = wine_ex.to_dict(orient='record')
 wines2 = pandas.read_excel('wine2.xlsx')
 cards2 = wines2.to_dict(orient = 'record')
 
-category = dict()
+category = collections.defaultdict(list)
 for i in cards2:   
     key = (i['Категория'])
-    if key in category:        
-        category[key].append(i)
-    else:
-        category[key]=[]        
-        category[key].append(i)   
+    category[key].append(i)
 pprint(category)
-
 
 env = Environment(
     loader = FileSystemLoader('.'),
