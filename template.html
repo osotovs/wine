@@ -105,6 +105,7 @@
     
     <div><a id="products"></a></div>
     <div class="site-section">
+      
       <div class="container">
         <div class="row">
           <div class="col-12 section-title text-center mb-5">
@@ -113,21 +114,38 @@
             </p>
           </div>
         </div>
-        <div class="row">
-          {% for card in cards %}
-          <div class="col-lg-4 mb-5 col-md-6">
-            <div class="wine_v_1 text-center pb-4 pt-5">
-              <img src="images/{{card.Картинка}}" alt="Image" class="img-fluid">
-              <div>
-                <h3 class="heading mt-3 mb-3 text-dark">{{card.Название}}</h3>
-                <p>
-                  Сорт винограда - {{card.Сорт}}<br/>
-                  <span class="price">{{card.Цена}} р.</span>
-                </p>
+        {% for card, items in cards.items() %}
+          <div class="container">
+            <div class="row">
+              <div class="col-12 section-title text-center mb-5">
+                <h2 class="d-block">{{card}}</h2>                
               </div>
             </div>
-          </div>
-          {% endfor %}
+            <div class="row">       
+              {%for item in items %}
+                <div class="col-lg-4 mb-5 col-md-6">
+                  <div class="wine_v_1 text-center pb-4 pt-5">
+
+                    {% if item.Картинка %} 
+                      <img src="images/{{item.Картинка}}" alt="Image" class="img-fluid">
+                    {% else %}
+                      <img src="images/profitable.png" alt="Image" class="img-fluid">
+                    {% endif %}
+
+                    <div>
+                      <h3 class="heading mt-3 mb-3 text-dark">{{item.Название}}</h3>
+                      <p>
+                        {% if item.Категория != 'Напитки' %}
+                          Сорт винограда - {{item.Сорт}}<br/>                        
+                        {% endif %}
+                        <span class="price">{{item.Цена}} р.</span>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              {%endfor%}
+          </div>  
+        {%endfor%}    
         </div>
       </div>
     </div>
