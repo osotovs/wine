@@ -3,10 +3,24 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 import pandas
 
 import datetime as dt
+from pprint import pprint
 
 wine_ex = pandas.read_excel('wine.xlsx')
 cards = wine_ex.to_dict(orient='record')
-print(cards)
+
+wines2 = pandas.read_excel('wine2.xlsx')
+cards2 = wines2.to_dict(orient = 'record')
+
+category = dict()
+for i in cards2:   
+    key = (i['Категория'])
+    if key in category:        
+        category[key].append(i)
+    else:
+        category[key]=[]        
+        category[key].append(i)   
+pprint(category)
+
 
 env = Environment(
     loader = FileSystemLoader('.'),
@@ -21,7 +35,6 @@ date_age = date_now.year - date_born.year
 rendered_page = template.render(
     date_text = date_age,
     cards = cards
-
 )
 
 with open('index.html', 'w', encoding='utf-8') as f:
