@@ -6,10 +6,7 @@ import datetime as dt
 from pprint import pprint
 import collections
 
-wine_ex = pandas.read_excel('wine.xlsx')
-cards = wine_ex.to_dict(orient='record')
-
-wines2 = pandas.read_excel('wine2.xlsx')
+wines2 = pandas.read_excel('wine3.xlsx')
 cards2 = wines2.to_dict(orient = 'record')
 
 # создаем список вин для каждой категории
@@ -19,6 +16,11 @@ for i in cards2:
     category[key].append(i)
 pprint(category)
 
+# вычисляем возраст фирмы
+date_born =  dt.date(year=1920, month=1,day=1)
+date_now = dt.date.today()
+date_age = date_now.year - date_born.year
+
 
 env = Environment(
     loader = FileSystemLoader('.'),
@@ -26,14 +28,9 @@ env = Environment(
 )
 template = env.get_template('template.html')
 
-# вычисляем возраст фирмы
-date_born =  dt.date(year=1920, month=1,day=1)
-date_now = dt.date.today()
-date_age = date_now.year - date_born.year
-
 rendered_page = template.render(
-    date_text = date_age,
-    cards = category, #категории вин    
+    date_text = date_age, #возраст фирмы
+    categories = category, #категории вин    
 )
 
 with open('index.html', 'w', encoding='utf-8') as f:
