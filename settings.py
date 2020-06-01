@@ -1,0 +1,1 @@
+PATH_DATA_WINE = 'wine.xlsx'
